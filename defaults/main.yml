@@ -1,0 +1,18 @@
+---
+# Knot configuration variables
+knot_listen_address:
+  - '127.0.0.1@53'
+
+knot_log_base_path: '/var/log/knot'
+knot_log_control:
+  target: '{{ knot_log_base_path }}/knot_control.log'
+  level: info
+knot_log_server:
+  target: '{{ knot_log_base_path }}/knot_server.log'
+  level: info
+knot_log_zone:
+  target: '{{ knot_log_base_path }}/knot_control.log'
+  level: info
+knot_log_default:
+  target: '{{ knot_log_base_path }}/knot.log'
+  level: info

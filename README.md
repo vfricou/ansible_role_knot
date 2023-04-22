@@ -42,3 +42,7 @@ You need to have python3 package installed on remote OS to use this role.
 # Changelog
 
 To clearest and updated changelog, I encourage you to see pull requests with flags "feature".
+
+# Roadmap
+
+- Manage replication

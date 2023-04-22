@@ -1,0 +1,18 @@
+galaxy_info:
+  author: "Vincent FRICOU"
+  role_name: "knot"
+  description: "Install and configure knot authoritative server"
+  license: MIT
+  min_ansible_version: '2.10'
+  platforms:
+    - name: Debian
+      versions:
+        - 'buster'
+        - 'bullseye'
+    - name: EL
+      versions:
+        - '8'
+        - '9'
+    - name: Ubuntu
+      versions:
+        - 'impish'

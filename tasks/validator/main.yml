@@ -1,0 +1,19 @@
+---
+- name: "Validator | Populate "
+  ansible.builtin.set_fact:
+    supported_os: "{{ supported_platforms | json_query('[].name') }}"
+
+- name: "Validator | Check os support"
+  ansible.builtin.fail:
+    msg: "Your OS {{ ansible_distribution }} is not supported"
+  when: ansible_distribution not in supported_os
+
+- name: "Validator | Populate supported releases"
+  ansible.builtin.set_fact:
+    supported_versions: "{{ (supported_platforms | selectattr('name', 'match', ansible_distribution) | list | first).versions }}"
+
+- name: "Validator | Assert version is supported"
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution_version|int in supported_versions|list
+    fail_msg: "Your distribution {{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }}) is not supported"

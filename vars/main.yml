@@ -1,0 +1,46 @@
+---
+# Supported OS definition
+supported_platforms:
+  - name: Debian
+    versions:
+      - 11
+  - name: Rocky
+    versions:
+      - 8
+      - 9
+  - name: Ubuntu
+    versions:
+      - 22
+  - name: RedHat
+    versions:
+      - 8
+  - name: AlmaLinux
+    versions:
+      - 8
+      - 9
+
+# Role variables
+debian:
+  requirements:
+    - 'gnupg2'
+    - 'apt-transport-https'
+  repo:
+    url: 'https://deb.knot-dns.cz/knot-latest/'
+    filename: 'knot-dns.repo'
+    key: 'https://deb.knot-dns.cz/apt.gpg'
+ubuntu:
+  repo:
+    url: 'ppa:cz.nic-labs/knot-dns-latest'
+    filename: 'knot-dns.repo'
+rhel:
+  requirement:
+    - 'epel-release'
+
+knot:
+  conf_base_path: '/etc/knot/'
+  conf_file: 'knot.conf'
+  template:
+    storage: '/etc/knot/zones'
+    file: '%s.zone'
+# knot-dnsutils
+# knot-dnssecutils

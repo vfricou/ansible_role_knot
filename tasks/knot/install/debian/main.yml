@@ -1,0 +1,50 @@
+---
+- name: 'Knot | Install | Debian | Packages requirements'
+  tags:
+    - install
+    - update
+  become: true
+  become_user: 'root'
+  ansible.builtin.apt:
+    name: '{{ debian.requirements }}'
+    state: present
+    update_cache: true
+    cache_valid_time: 7200
+
+- name: 'Debian tasks block'
+  when: ansible_distribution == 'Debian'
+  tags:
+    - install
+    - update
+  become: true
+  become_user: 'root'
+  block:
+
+    - name: 'Knot | Install | Debian | Add KNOT repository key'
+      ansible.builtin.apt_key:
+        url: '{{ debian.repo.key }}'
+        keyring: '/etc/apt/trusted.gpg.d/knot.gpg'
+
+    - name: 'Knot | Install | Debian | Add KNOT repository'
+      ansible.builtin.apt_repository:
+        repo: 'deb {{ debian.repo.url }} {{ ansible_distribution_release }} main'
+        update_cache: true
+        state: present
+        install_python_apt: true
+        filename: '{{ debian.repo.filename }}'
+
+- name: 'Debian tasks block'
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+    - install
+    - update
+  become: true
+  become_user: 'root'
+  block:
+    - name: 'Knot | Install | Debian | Add KNOT repository'
+      ansible.builtin.apt_repository:
+        repo: '{{ ubuntu.repo.url }}'
+        update_cache: true
+        state: present
+        install_python_apt: true
+        filename: '{{ ubuntu.repo.filename }}'
