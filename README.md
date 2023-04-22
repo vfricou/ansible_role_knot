@@ -47,3 +47,7 @@ To clearest and updated changelog, I encourage you to see pull requests with fla
 
 - Manage replication
 - DNSSec
+
+# Documentation
+
+You could read [usage documentation](./docs/usage.md) for more informations
