@@ -46,3 +46,4 @@ To clearest and updated changelog, I encourage you to see pull requests with fla
 # Roadmap
 
 - Manage replication
+- DNSSec
