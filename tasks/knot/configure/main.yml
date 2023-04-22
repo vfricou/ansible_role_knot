@@ -11,6 +11,7 @@
     - { path: '{{ knot.template.storage }}', owner: 'root', group: 'knot', mode: '0770' }
 
 - name: 'Knot | Configure | Deploy configuration'
+  notify: 'Restart knot'
   ansible.builtin.template:
     dest: '{{ knot.conf_base_path }}/{{ knot.conf_file }}'
     src: 'knot/knot.conf.j2'
@@ -20,6 +21,7 @@
     backup: true
 
 - name: 'Knot | Configure | Deploy zones configurations'
+  notify: 'Restart knot'
   ansible.builtin.template:
     dest: '{{ knot.template.storage }}/{{ item.key }}.zone'
     src: 'knot/zone.j2'

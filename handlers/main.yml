@@ -1,0 +1,8 @@
+---
+- name: 'Restart knot'
+  become: true
+  become_user: 'root'
+  ansible.builtin.systemd:
+    name: 'knot.service'
+    enabled: true
+    state: restarted

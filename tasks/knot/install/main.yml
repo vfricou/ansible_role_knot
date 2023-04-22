@@ -8,6 +8,7 @@
   ansible.builtin.include_tasks: 'knot/install/rhel/main.yml'
 
 - name: 'Knot | Install | Install KNOT server package'
+  notify: 'Restart knot'
   ansible.builtin.package:
     state: present
     name: knot
