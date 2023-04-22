@@ -11,8 +11,26 @@ knot_log_server:
   target: '{{ knot_log_base_path }}/knot_server.log'
   level: info
 knot_log_zone:
-  target: '{{ knot_log_base_path }}/knot_control.log'
+  target: '{{ knot_log_base_path }}/knot_zone.log'
   level: info
 knot_log_default:
   target: '{{ knot_log_base_path }}/knot.log'
   level: info
+
+knot_zones:
+  example.org:
+    conf:
+      ttl: 86400
+      contact: 'admin.example.org'
+      refresh: '3600'
+      retry: '86400'
+      expire: '86400'
+      minimum: '3600'
+    ns:
+      - 'toto.example.org'
+    entries:
+      - 'toto 3600 IN A 1.2.3.4'
+
+
+
+

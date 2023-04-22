@@ -1,0 +1,16 @@
+$ORIGIN .
+$TTL {{ zone.conf.ttl }}
+{{ zone_name }}		IN SOA	{{ ansible_fqdn }}. {{ zone.conf.contact }}. (
+    {{ ansible_date_time.epoch }} ; serial
+    {{ zone.conf.refresh }} ; refresh (1 hour)
+    {{ zone.conf.retry }} ; retry (1 day)
+    {{ zone.conf.expire }} ; expire (1 day)
+    {{ zone.conf.minimum }} ; minimum (1 hour)
+)
+{% for entry in zone.ns %}
+  NS {{ entry }}.
+{% endfor %}
+$ORIGIN {{ zone_name }}.
+{% for entry in zone.entries %}
+{{ entry }}
+{% endfor %}

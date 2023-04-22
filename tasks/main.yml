@@ -3,4 +3,6 @@
   ansible.builtin.import_tasks: 'validator/main.yml'
 
 - name: 'Import knot'
+  become: true
+  become_user: 'root'
   ansible.builtin.import_tasks: 'knot/main.yml'

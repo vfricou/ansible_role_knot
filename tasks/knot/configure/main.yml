@@ -1,0 +1,33 @@
+---
+- name: 'Knot | Configure | Create necessary repositories'
+  ansible.builtin.file:
+    path: '{{ item.path }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '{{ item.mode }}'
+    state: directory
+  loop:
+    - { path: '{{ knot_log_base_path }}', owner: 'knot', group: 'knot', mode: '0770' }
+    - { path: '{{ knot.template.storage }}', owner: 'root', group: 'knot', mode: '0770' }
+
+- name: 'Knot | Configure | Deploy configuration'
+  ansible.builtin.template:
+    dest: '{{ knot.conf_base_path }}/{{ knot.conf_file }}'
+    src: 'knot/knot.conf.j2'
+    owner: 'root'
+    group: 'knot'
+    mode: '0640'
+    backup: true
+
+- name: 'Knot | Configure | Deploy zones configurations'
+  ansible.builtin.template:
+    dest: '{{ knot.template.storage }}/{{ item.key }}.zone'
+    src: 'knot/zone.j2'
+    owner: 'knot'
+    group: 'knot'
+    mode: '0600'
+    backup: true
+  loop: '{{ knot_zones | dict2items }}'
+  vars:
+    zone_name: '{{ item.key }}'
+    zone: '{{ item.value }}'

@@ -1,0 +1,34 @@
+#########################################
+# Ansible managed file
+#########################################
+server:
+    rundir: "/run/knot"
+    user: knot:knot
+    automatic-acl: on
+{% for entry in knot_listen_address %}
+    listen: {{ entry }}
+{% endfor %}
+
+log:
+  - target: {{ knot_log_control.target }}
+    control: {{ knot_log_control.level }}
+  - target: {{ knot_log_server.target }}
+    server: {{ knot_log_server.level}}
+  - target: {{ knot_log_zone.target }}
+    zone: {{ knot_log_zone.level }}
+  - target: {{ knot_log_default.target }}
+    any: {{ knot_log_default.level }}
+
+database:
+    storage: "/var/lib/knot"
+
+template:
+  - id: knot-zone-dir
+    storage: "{{ knot.template.storage }}"
+    file: "{{ knot.template.file }}"
+
+zone:
+{% for entry in knot_zones %}
+  - domain: {{ entry }}
+    template: knot-zone-dir
+{% endfor %}

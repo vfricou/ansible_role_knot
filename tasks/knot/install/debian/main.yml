@@ -1,10 +1,5 @@
 ---
 - name: 'Knot | Install | Debian | Packages requirements'
-  tags:
-    - install
-    - update
-  become: true
-  become_user: 'root'
   ansible.builtin.apt:
     name: '{{ debian.requirements }}'
     state: present
@@ -13,11 +8,6 @@
 
 - name: 'Debian tasks block'
   when: ansible_distribution == 'Debian'
-  tags:
-    - install
-    - update
-  become: true
-  become_user: 'root'
   block:
 
     - name: 'Knot | Install | Debian | Add KNOT repository key'
@@ -35,11 +25,6 @@
 
 - name: 'Debian tasks block'
   when: ansible_distribution == 'Ubuntu'
-  tags:
-    - install
-    - update
-  become: true
-  become_user: 'root'
   block:
     - name: 'Knot | Install | Debian | Add KNOT repository'
       ansible.builtin.apt_repository:

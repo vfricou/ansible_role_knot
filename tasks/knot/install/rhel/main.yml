@@ -1,10 +1,5 @@
 ---
 - name: 'Knot | Install | RHEL | Install epel repository'
-  tags:
-    - install
-    - update
-  become: true
-  become_user: 'root'
   ansible.builtin.dnf:
     name: '{{ rhel.requirement }}'
     state: present
