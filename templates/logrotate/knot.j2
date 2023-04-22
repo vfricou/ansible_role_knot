@@ -1,0 +1,13 @@
+{{ knot_log_control.target }}
+{{ knot_log_server.target }}
+{{ knot_log_zone.target }}
+{{ knot_log_default.target }}
+{
+  rotate {{ log_retention }}
+  daily
+  missingok
+  copytruncate
+  notifempty
+  compress
+  create 0660 knot knot
+}

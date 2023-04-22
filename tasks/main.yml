@@ -6,3 +6,8 @@
   become: true
   become_user: 'root'
   ansible.builtin.import_tasks: 'knot/main.yml'
+
+- name: 'Import logrotate'
+  become: true
+  become_user: 'root'
+  ansible.builtin.import_tasks: 'logrotate/main.yml'

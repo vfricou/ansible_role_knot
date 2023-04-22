@@ -1,22 +1,29 @@
 ---
 # Knot configuration variables
+# Knot listening addresses and ports
 knot_listen_address:
   - '127.0.0.1@53'
-
+# Knot log base path
 knot_log_base_path: '/var/log/knot'
+# Knot logs for control unit
 knot_log_control:
   target: '{{ knot_log_base_path }}/knot_control.log'
   level: info
+# Knot logs for server unit
 knot_log_server:
   target: '{{ knot_log_base_path }}/knot_server.log'
   level: info
+# Knot logs for zone unit
 knot_log_zone:
   target: '{{ knot_log_base_path }}/knot_zone.log'
   level: info
+# Knot logs for default zone
 knot_log_default:
   target: '{{ knot_log_base_path }}/knot.log'
   level: info
-
+# Knot logs retention
+log_retention: 15
+# Knot zone definition
 knot_zones:
   example.org:
     conf:
@@ -30,7 +37,3 @@ knot_zones:
       - 'toto.example.org'
     entries:
       - 'toto 3600 IN A 1.2.3.4'
-
-
-
-

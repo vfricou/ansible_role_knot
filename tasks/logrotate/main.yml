@@ -1,0 +1,8 @@
+---
+- name: 'Logrotate | Deploy configuration'
+  ansible.builtin.template:
+    dest: '/etc/logrotate.d/knot'
+    src: 'logrotate/knot.j2'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
