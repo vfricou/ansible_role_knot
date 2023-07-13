@@ -23,7 +23,7 @@
         install_python_apt: true
         filename: '{{ debian.repo.filename }}'
 
-- name: 'Debian tasks block'
+- name: 'Ubuntu tasks block'
   when: ansible_distribution == 'Ubuntu'
   block:
     - name: 'Knot | Install | Debian | Add KNOT repository'
@@ -33,3 +33,8 @@
         state: present
         install_python_apt: true
         filename: '{{ ubuntu.repo.filename }}'
+
+- name: 'Knot | Install | Debian | Install Knot'
+  ansible.builtin.apt:
+    name: knot
+    state: present
