@@ -21,15 +21,9 @@
     backup: true
 
 - name: 'Knot | Configure | Deploy zones configurations'
-  notify: 'Restart knot'
-  ansible.builtin.template:
-    dest: '{{ knot.template.storage }}/{{ item.key }}.zone'
-    src: 'knot/zone.j2'
-    owner: 'knot'
-    group: 'knot'
-    mode: '0600'
-    backup: true
   loop: '{{ knot_zones | dict2items }}'
   vars:
     zone_name: '{{ item.key }}'
     zone: '{{ item.value }}'
+  ansible.builtin.include_tasks: knot/configure/zone.yml
+

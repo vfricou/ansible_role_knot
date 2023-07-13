@@ -1,0 +1,18 @@
+---
+- name: 'Knot | Configure | Zone | Remove non active zone'
+  notify: 'Restart knot'
+  when: not item.value.active
+  ansible.builtin.file:
+    path: '{{ knot.template.storage }}/{{ item.key }}.zone'
+    state: absent
+
+- name: 'Knot | Configure | Zone | Deploy zones configurations'
+  notify: 'Restart knot'
+  when: item.value.active
+  ansible.builtin.template:
+    dest: '{{ knot.template.storage }}/{{ item.key }}.zone'
+    src: 'knot/zone.j2'
+    owner: 'knot'
+    group: 'knot'
+    mode: '0600'
+    backup: true

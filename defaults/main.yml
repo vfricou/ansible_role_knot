@@ -26,6 +26,7 @@ log_retention: 15
 # Knot zone definition
 knot_zones:
   example.org:
+    active: false
     conf:
       ttl: 86400
       contact: 'admin.example.org'
