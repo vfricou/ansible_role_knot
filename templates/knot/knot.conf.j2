@@ -31,4 +31,9 @@ zone:
 {% for entry in knot_zones %}
   - domain: {{ entry }}
     template: knot-zone-dir
+{% if knot_zones[entry]['dnssec'] is defined and knot_zones[entry]['dnssec'] %}
+    semantic-checks: on
+    dnssec-signing: on
+    dnssec-policy: {{ knot_zones[entry]['dnssec_policy'] | default('default') }}
+{% endif %}
 {% endfor %}
