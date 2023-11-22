@@ -31,4 +31,5 @@ zone:
 {% for entry in knot_zones %}
   - domain: {{ entry }}
     template: knot-zone-dir
+    dnssec-signing: {{ knot_zones[entry].dnssec | default('off') }}
 {% endfor %}
