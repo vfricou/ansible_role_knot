@@ -29,11 +29,11 @@ knot_zones_template:
   - name: "default"
     storage: "{{ knot.template.storage }}"
     file: "{{ knot.template.file }}"
-    dnssec-signing: off
+    dnssec-signing: 'off'
   - name: "dnssec"
     storage: "{{ knot.template.storage }}"
     file: "{{ knot.template.file }}"
-    dnssec-signing: on
+    dnssec-signing: 'on'
 
 # Knot zone definition
 knot_zones:

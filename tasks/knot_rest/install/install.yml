@@ -1,5 +1,5 @@
 ---
-- name: 'Knot_rest | Install | Clone git repository'
+- name: 'Knot_rest | Install | Clone git repository' # noqa latest[git]
   become: true
   become_user: 'knot'
   ansible.builtin.git:

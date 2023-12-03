@@ -12,6 +12,6 @@
   become_user: 'root'
   ansible.builtin.systemd:
     name: 'knot-rest-api.service'
-    daemon_reload: yes
+    daemon_reload: true
     enabled: true
     state: restarted

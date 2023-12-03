@@ -26,4 +26,3 @@
     zone_name: '{{ item.key }}'
     zone: '{{ item.value }}'
   ansible.builtin.include_tasks: knot/configure/zone.yml
-

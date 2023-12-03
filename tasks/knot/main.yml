@@ -13,4 +13,3 @@
     - configure
     - knot_configure
   ansible.builtin.import_tasks: 'knot/configure/main.yml'
-

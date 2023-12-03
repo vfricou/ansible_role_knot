@@ -17,19 +17,35 @@
         chdir: "{{ knot_rest_path }}/src"
         creates: "{{ knot_rest_path }}/lib/database.db"
       ansible.builtin.command:
-        cmd: "{{ knot_rest_path }}/venv/bin/flask --app 'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' database init"
+        cmd: "{{ knot_rest_path }}/venv/bin/flask \
+              --app \
+              'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' \
+              database \
+              init"
 
-    - name: 'Knot_test | Postinstall | Create default user'
+    - name: 'Knot_test | Postinstall | Create default user' # noqa no-changed-when
       args:
         chdir: "{{ knot_rest_path }}/src"
       ansible.builtin.command:
-        cmd: "{{ knot_rest_path }}/venv/bin/flask --app 'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' users add {{ knot_rest_username }} {{ knot_rest_password }}"
+        cmd: "{{ knot_rest_path }}/venv/bin/flask \
+              --app \
+              'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' \
+              users \
+              add \
+              {{ knot_rest_username }} \
+              {{ knot_rest_password }}"
 
-    - name: 'Knot_test | Postinstall | Define role for default user'
+    - name: 'Knot_test | Postinstall | Define role for default user' # noqa no-changed-when
       args:
         chdir: "{{ knot_rest_path }}/src"
       ansible.builtin.command:
-        cmd: "{{ knot_rest_path }}/venv/bin/flask --app 'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' usermod admin add {{ knot_rest_username }}"
+        cmd: "{{ knot_rest_path }}/venv/bin/flask \
+              --app \
+              'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' \
+              usermod \
+              admin \
+              add \
+              {{ knot_rest_username }}"
 
 - name: 'Knot_rest | Postinstall | Deploy systemd unit'
   become: true
