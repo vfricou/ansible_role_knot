@@ -21,12 +21,24 @@ knot_log_zone:
 knot_log_default:
   target: '{{ knot_log_base_path }}/knot.log'
   level: info
+knot_socket_path: '/run/knot'
 # Knot logs retention
 log_retention: 15
+# Knot zone template
+knot_zones_template:
+  - name: "default"
+    storage: "{{ knot.template.storage }}"
+    file: "{{ knot.template.file }}"
+    dnssec-signing: off
+  - name: "dnssec"
+    storage: "{{ knot.template.storage }}"
+    file: "{{ knot.template.file }}"
+    dnssec-signing: on
+
 # Knot zone definition
 knot_zones:
   example.org:
-    dnssec: true
+    template: 'dnssec'
     active: false
     conf:
       ttl: 86400

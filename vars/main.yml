@@ -4,6 +4,7 @@ supported_platforms:
   - name: Debian
     versions:
       - 11
+      - 12
   - name: Rocky
     versions:
       - 8

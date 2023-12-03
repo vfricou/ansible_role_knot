@@ -1,7 +1,10 @@
 ---
 - name: 'Logrotate | Deploy configuration'
   tags:
+    - install
+    - knot_install
     - configure
+    - knot_configure
   ansible.builtin.template:
     dest: '/etc/logrotate.d/knot'
     src: 'logrotate/knot.j2'

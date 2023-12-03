@@ -1,10 +1,16 @@
 ---
 - name: 'Import install'
-  ansible.builtin.import_tasks: 'knot/install/main.yml'
   tags:
     - install
+    - knot_install
+  ansible.builtin.import_tasks: 'knot/install/main.yml'
+
 
 - name: 'Import configure'
-  ansible.builtin.import_tasks: 'knot/configure/main.yml'
   tags:
+    - install
+    - knot_install
     - configure
+    - knot_configure
+  ansible.builtin.import_tasks: 'knot/configure/main.yml'
+

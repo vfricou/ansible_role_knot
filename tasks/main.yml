@@ -1,5 +1,7 @@
 ---
 - name: 'Import validator'
+  tags:
+    - always
   ansible.builtin.import_tasks: 'validator/main.yml'
 
 - name: 'Import knot'

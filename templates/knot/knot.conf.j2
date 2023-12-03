@@ -2,7 +2,7 @@
 # Ansible managed file
 #########################################
 server:
-    rundir: "/run/knot"
+    rundir: "{{ knot_socket_path }}"
     user: knot:knot
     automatic-acl: on
 {% for entry in knot_listen_address %}
@@ -13,7 +13,7 @@ log:
   - target: {{ knot_log_control.target }}
     control: {{ knot_log_control.level }}
   - target: {{ knot_log_server.target }}
-    server: {{ knot_log_server.level}}
+    server: {{ knot_log_server.level }}
   - target: {{ knot_log_zone.target }}
     zone: {{ knot_log_zone.level }}
   - target: {{ knot_log_default.target }}
@@ -23,13 +23,16 @@ database:
     storage: "/var/lib/knot"
 
 template:
-  - id: knot-zone-dir
-    storage: "{{ knot.template.storage }}"
-    file: "{{ knot.template.file }}"
+{% for entry in knot_zones_template %}
+  - id: {{ entry['name'] }}
+    storage: "{{ entry['storage'] }}"
+    file: "{{ entry['file'] }}"
+    dnssec-signing: "{{ entry['dnssec-signing'] }}"
+{% endfor %}
 
 zone:
 {% for entry in knot_zones %}
   - domain: {{ entry }}
-    template: knot-zone-dir
+    template: {{ knot_zones[entry]['template'] | default('default')}}
     dnssec-signing: {{ knot_zones[entry].dnssec | default('off') }}
 {% endfor %}
