@@ -6,3 +6,12 @@
     name: 'knot.service'
     enabled: true
     state: restarted
+
+- name: 'Restart KNOT REST API'
+  become: true
+  become_user: 'root'
+  ansible.builtin.systemd:
+    name: 'knot-rest-api.service'
+    daemon_reload: yes
+    enabled: true
+    state: restarted

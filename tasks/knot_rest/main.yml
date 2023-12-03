@@ -1,0 +1,30 @@
+---
+- name: 'Import prerequisites tasks'
+  tags:
+    - install
+    - knot_install
+    - knot_rest_install
+  ansible.builtin.import_tasks: knot_rest/prerequisites.yml
+
+- name: 'Import install tasks'
+  tags:
+    - install
+    - knot_install
+    - knot_rest_install
+  ansible.builtin.import_tasks: knot_rest/install/install.yml
+
+- name: 'Import configure tasks'
+  tags:
+    - install
+    - knot_install
+    - knot_rest_install
+    - configure
+    - knot_rest_configure
+  ansible.builtin.import_tasks: knot_rest/configure/configure.yml
+
+- name: 'Import configure tasks'
+  tags:
+    - install
+    - knot_install
+    - knot_rest_install
+  ansible.builtin.import_tasks: knot_rest/postinstall/postinstall.yml

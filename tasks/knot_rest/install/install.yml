@@ -1,0 +1,23 @@
+---
+- name: 'Knot_rest | Install | Clone git repository'
+  become: true
+  become_user: 'knot'
+  ansible.builtin.git:
+    dest: '{{ knot_rest_path }}/src'
+    repo: '{{ knot_rest.repo_url }}'
+    depth: 1
+
+- name: 'Knot_rest | Install | Install venv requirements'
+  become: true
+  become_user: 'knot'
+  ansible.builtin.pip:
+    requirements: "{{ knot_rest_path }}/src/requirements.txt"
+    virtualenv: "{{ knot_rest_path }}/venv"
+    virtualenv_command: '/usr/bin/python3 -m venv'
+
+- name: 'Knot_rest | Install | Install gunicorn in venv'
+  become: true
+  become_user: 'knot'
+  ansible.builtin.pip:
+    name: 'gunicorn'
+    virtualenv: "{{ knot_rest_path }}/venv"

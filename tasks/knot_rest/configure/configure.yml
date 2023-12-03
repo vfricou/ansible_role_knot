@@ -1,0 +1,20 @@
+---
+- name: 'Knot_rest | Configure | Deploy knot rest API configuration'
+  become: true
+  become_user: 'knot'
+  notify: 'Restart KNOT REST API'
+  ansible.builtin.template:
+    dest: "{{ knot_rest_path }}/etc/knot_rest.yaml"
+    src: knot_rest/knot_rest.yaml.j2
+    mode: "0600"
+
+- name: 'Knot_rest | Configure | Deploy knot rest API run environment'
+  become: true
+  become_user: 'knot'
+  notify: 'Restart KNOT REST API'
+  ansible.builtin.copy:
+    dest: "{{ knot_rest_path }}/etc/run_env"
+    content: |
+      LISTEN_ADDR="{{ knot_rest_listen_address }}"
+      LISTEN_PORT="{{ knot_rest_listen_port }}"
+    mode: '0600'

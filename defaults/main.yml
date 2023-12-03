@@ -51,3 +51,12 @@ knot_zones:
       - 'toto.example.org'
     entries:
       - 'toto 3600 IN A 1.2.3.4'
+
+
+# Knot rest API
+knot_rest_path: '/opt/knot_rest'
+knot_socket_timeout: 60
+knot_rest_token_expiration: 600
+knot_rest_libknot_path: '/usr/lib/x86_64-linux-gnu/libknot.so.13'
+knot_rest_listen_address: '127.0.0.1'
+knot_rest_listen_port: '8080'

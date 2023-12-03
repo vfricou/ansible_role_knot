@@ -1,0 +1,158 @@
+---
+argument_specs:
+  main:
+    options:
+      knot_listen_address:
+        type: list
+        description: 'Knot listen addresses'
+        required: False
+        default:
+          - '127.0.0.1@53'
+
+      knot_log_base_path:
+        type: str
+        description: 'Knot log base path'
+        required: False
+        default: '/var/log/knot'
+
+      knot_log_control:
+        type: dict
+        description: 'Knot control log configuration'
+        required: False
+        options:
+          target:
+            type: str
+            description: 'Log file location for control logs'
+            default: '{{ knot_log_base_path }}/knot_control.log'
+          level:
+            type: str
+            description: 'Log level for control logs'
+            default: 'info'
+
+      knot_log_server:
+        type: dict
+        description: 'Knot server log configuration'
+        required: False
+        options:
+          target:
+            type: str
+            description: 'Log file location for server logs'
+            default: '{{ knot_log_base_path }}/knot_server.log'
+          level:
+            type: str
+            description: 'Log level for server logs'
+            default: 'info'
+
+      knot_log_zone:
+        type: dict
+        description: 'Knot zone log configuration'
+        required: False
+        options:
+          target:
+            type: str
+            description: 'Log file location for zone logs'
+            default: '{{ knot_log_base_path }}/knot_zone.log'
+          level:
+            type: str
+            description: 'Log level for zone logs'
+            default: 'info'
+
+      knot_log_default:
+        type: dict
+        description: 'Knot default log configuration'
+        required: False
+        options:
+          target:
+            type: str
+            description: 'Log file location for default logs'
+            default: '{{ knot_log_base_path }}/knot_default.log'
+          level:
+            type: str
+            description: 'Log level for default logs'
+            default: 'info'
+
+      knot_socket_path:
+        type: str
+        description: 'Knot socket base path'
+        required: False
+        default: '/run/knot'
+
+      log_retention:
+        type: int
+        description: 'Knot log retention in days'
+        required: False
+        default: 15
+
+      knot_zones_template:
+        type: list
+        description: 'Knot zone templates configuration'
+        required: True
+        options:
+          name:
+            type: str
+            description: 'Name of template'
+            required: True
+          storage:
+            type: str
+            description: 'Zone storage path for this template'
+            required: True
+          dnssec-signing:
+            type: str
+            description: 'Activation of DNSSEC for zones using this template'
+            required: True
+
+      knot_zones:
+        type: dict
+        description: 'Knot zone declaration'
+        required: True
+
+      knot_rest_path:
+        type: str
+        description: 'Knot REST API base path'
+        required: False
+        default: '/opt/knot_rest'
+
+      knot_socket_timeout:
+        type: int
+        description: 'Knot REST API timeout in seconds'
+        required: False
+        default: 60
+
+      knot_rest_token_expiration:
+        type: int
+        description: 'Knot REST API token expiration in seconds'
+        required: False
+        default: 600
+
+      knot_rest_libknot_path:
+        type: str
+        description: 'Knot libknot.so path on system'
+        required: False
+        default: '/usr/lib/x86_64-linux-gnu-libknot.so.13'
+
+      knot_rest_socket_secret:
+        type: str
+        description: 'Knot REST API secret used to hash password in database'
+        required: True
+
+      knot_rest_listen_address:
+        type: str
+        description: 'Knot REST API listen address'
+        required: False
+        default: '127.0.0.1'
+
+      knot_rest_listen_port:
+        type: str
+        description: 'Knot REST API listen port'
+        required: False
+        default: '8080'
+
+      knot_rest_username:
+        type: str
+        description: 'Knot REST API username'
+        required: True
+
+      knot_rest_password:
+        type: str
+        description: 'Knot REST API password'
+        required: True

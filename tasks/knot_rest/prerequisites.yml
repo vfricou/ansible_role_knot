@@ -1,0 +1,30 @@
+---
+- name: 'Knot_rest | Prerequisites | Ensure required folder exists'
+  become: true
+  become_user: 'root'
+  loop:
+    - path: ''
+      owner: 'knot'
+      group: 'knot'
+    - path: 'etc'
+      owner: 'knot'
+      group: 'knot'
+    - path: 'logs'
+      owner: 'knot'
+      group: 'knot'
+    - path: 'lib'
+      owner: 'knot'
+      group: 'knot'
+  ansible.builtin.file:
+    path: '{{ knot_rest_path }}/{{ item.path }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '0770'
+    state: directory
+
+- name: 'Knot_rest | Prerequisites | Ensure required packages are installed'
+  become: true
+  become_user: 'root'
+  ansible.builtin.package:
+    state: present
+    name: '{{ knot_rest.requirements }}'

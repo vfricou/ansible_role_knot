@@ -1,0 +1,16 @@
+#########################################
+# Ansible managed file
+#########################################
+audit-log: '{{ knot_rest_path }}/logs/audit.log'
+
+database: 'sqlite:///{{ knot_rest_path }}/lib/database.db'
+
+libknot: '{{ knot_rest_libknot_path }}'
+
+socket:
+  path: '{{ knot_socket_path }}/knot.sock'
+  timeout: {{ knot_socket_timeout }}
+
+token:
+  secret: '{{ knot_rest_socket_secret }}'
+  expiration: {{ knot_rest_token_expiration }}

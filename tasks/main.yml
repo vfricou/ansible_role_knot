@@ -13,3 +13,6 @@
   become: true
   become_user: 'root'
   ansible.builtin.import_tasks: 'logrotate/main.yml'
+
+- name: 'Import knot_rest tasks'
+  ansible.builtin.import_tasks: 'knot_rest/main.yml'

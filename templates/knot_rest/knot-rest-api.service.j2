@@ -1,0 +1,16 @@
+[Unit]
+Description=Knot REST API
+After=network.target knot.service
+
+[Service]
+EnvironmentFile={{ knot_rest_path }}/etc/run_env
+WorkingDirectory={{ knot_rest_path }}/src
+User=knot
+Group=knot
+ExecStart={{ knot_rest_path }}/venv/bin/gunicorn 'knot_rest:create_app("{{ knot_rest_path }}/etc/knot_rest.yaml")' --bind ${LISTEN_ADDR}:${LISTEN_PORT}
+KillMode=process
+Restart=on-failure
+PrivateTmp=True
+
+[Install]
+WantedBy=multi-user.target

@@ -45,3 +45,10 @@ knot:
     file: '%s.zone'
 # knot-dnsutils
 # knot-dnssecutils
+
+knot_rest:
+  requirements:
+    - 'python3-venv'
+    - 'git'
+    - 'libknot13'
+  repo_url: 'https://gitlab.nic.cz/knot/knot-dns-rest'

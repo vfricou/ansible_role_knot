@@ -1,0 +1,43 @@
+---
+- name: 'Knot_rest | Postinstall | Stat if database already exist'
+  become: true
+  become_user: 'knot'
+  register: _knot_rest_database_stat
+  ansible.builtin.stat:
+    path: "{{ knot_rest_path }}/lib/database.db"
+
+- name: 'Knot_test | Postinstall | Perform postinstall tasks'
+  become: true
+  become_user: 'knot'
+  when:
+    - not _knot_rest_database_stat.stat.exists
+  block:
+    - name: 'Knot_test | Postinstall | Initialize database'
+      args:
+        chdir: "{{ knot_rest_path }}/src"
+        creates: "{{ knot_rest_path }}/lib/database.db"
+      ansible.builtin.command:
+        cmd: "{{ knot_rest_path }}/venv/bin/flask --app 'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' database init"
+
+    - name: 'Knot_test | Postinstall | Create default user'
+      args:
+        chdir: "{{ knot_rest_path }}/src"
+      ansible.builtin.command:
+        cmd: "{{ knot_rest_path }}/venv/bin/flask --app 'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' users add {{ knot_rest_username }} {{ knot_rest_password }}"
+
+    - name: 'Knot_test | Postinstall | Define role for default user'
+      args:
+        chdir: "{{ knot_rest_path }}/src"
+      ansible.builtin.command:
+        cmd: "{{ knot_rest_path }}/venv/bin/flask --app 'knot_rest:create_app(\"{{ knot_rest_path }}/etc/knot_rest.yaml\")' usermod admin add {{ knot_rest_username }}"
+
+- name: 'Knot_rest | Postinstall | Deploy systemd unit'
+  become: true
+  become_user: 'root'
+  notify: 'Restart KNOT REST API'
+  ansible.builtin.template:
+    dest: '/etc/systemd/system/knot-rest-api.service'
+    src: knot_rest/knot-rest-api.service.j2
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
